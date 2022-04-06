@@ -12,3 +12,7 @@
 
 #[cfg(target_arch = "arm")]
 pub mod arm;
+
+
+/// Common module to interact with hardware registers implementations.
+pub mod reg;
