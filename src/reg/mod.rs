@@ -17,6 +17,23 @@ pub use default::DefaultRegister;
 
 
 
+/// Common trait for all possible register inner types.
+pub trait RegisterData: Sized + BitAnd<Output=Self> + BitOr<Output=Self> + BitXor<Output=Self> + Not<Output=Self> {}
+
+impl RegisterData for i8  {}
+impl RegisterData for u8  {}
+impl RegisterData for i16 {}
+impl RegisterData for u16 {}
+impl RegisterData for i32 {}
+impl RegisterData for u32 {}
+impl RegisterData for i64 {}
+impl RegisterData for u64 {}
+
+impl RegisterData for isize {}
+impl RegisterData for usize {}
+
+
+
 /// Common trait for all possible register types.
 /// Each hardware may have a different implementation (e.g. hardware atomics, bit banding, etc...).
 pub trait Register<T: RegisterData>: Sized {
@@ -55,20 +72,3 @@ pub trait Register<T: RegisterData>: Sized {
         self.write( self.read() ^ mask )
     }
 }
-
-
-
-/// Common trait for all possible register inner types.
-pub trait RegisterData: Sized + BitAnd<Output=Self> + BitOr<Output=Self> + BitXor<Output=Self> + Not<Output=Self> {}
-
-impl RegisterData for i8  {}
-impl RegisterData for u8  {}
-impl RegisterData for i16 {}
-impl RegisterData for u16 {}
-impl RegisterData for i32 {}
-impl RegisterData for u32 {}
-impl RegisterData for i64 {}
-impl RegisterData for u64 {}
-
-impl RegisterData for isize {}
-impl RegisterData for usize {}
